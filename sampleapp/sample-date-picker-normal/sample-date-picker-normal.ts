@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged} from '../../src/my-date-picker/interfaces';
+import { Component, OnInit } from '@angular/core';
+import { IMyOptions, IMyDateModel, IMyInputFieldChanged, IMyCalendarViewChanged } from '../../src/my-date-picker/interfaces';
 
-declare var require:any;
+declare var require: any;
 const normalSampleTpl: string = require('./sample-date-picker-normal.html');
 
 @Component({
@@ -11,9 +11,10 @@ const normalSampleTpl: string = require('./sample-date-picker-normal.html');
 
 export class SampleDatePickerNormal implements OnInit {
 
+    private mascaraDaData: Array<string | RegExp> = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
     private myDatePickerNormalOptions: IMyOptions = {
         todayBtnTxt: 'Today',
-        dateFormat: 'dd mmm yyyy',
+        dateFormat: 'dd/mm/yyyy',
         firstDayOfWeek: 'mo',
         sunHighlight: true,
         markCurrentDay: true,
@@ -32,15 +33,13 @@ export class SampleDatePickerNormal implements OnInit {
         showInputField: true,
         openSelectorOnInputClick: false
     };
-    private selectedDateNormal:string = '';
-
+    private selectedDateNormal: string = '';
     private selectedTextNormal: string = '';
     private border: string = 'none';
-
     private placeholder: string = 'Select date';
     private selector: number = 0;
 
-    constructor() {}
+    constructor() { }
 
     clearDate() {
         this.selectedDateNormal = '';
@@ -107,7 +106,7 @@ export class SampleDatePickerNormal implements OnInit {
 
     onDateChanged(event: IMyDateModel) {
         console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
-        if(event.formatted !== '') {
+        if (event.formatted !== '') {
             this.selectedTextNormal = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';
 
